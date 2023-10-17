@@ -1,3 +1,3 @@
-mod report;
+mod report_service;
 
-pub use report::ReportService;
+pub use report_service::ReportService;

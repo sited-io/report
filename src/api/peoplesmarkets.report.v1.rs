@@ -10,7 +10,10 @@ pub struct CreateReportRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateReportResponse {}
+pub struct CreateReportResponse {
+    #[prost(string, optional, tag = "1")]
+    pub link: ::core::option::Option<::prost::alloc::string::String>,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum ReportType {

@@ -54,7 +54,7 @@ impl report_service_server::ReportService for ReportService {
 
         let gh_client = octocrab::instance();
 
-        gh_client
+        let response = gh_client
             .issues(Self::GH_OWNER, Self::GH_REPO)
             .create(title)
             .body(content)
@@ -66,6 +66,8 @@ impl report_service_server::ReportService for ReportService {
                 Status::internal(err.to_string())
             })?;
 
-        Ok(Response::new(CreateReportResponse {}))
+        Ok(Response::new(CreateReportResponse {
+            link: Some(response.url.to_string()),
+        }))
     }
 }

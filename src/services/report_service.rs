@@ -67,7 +67,7 @@ impl report_service_server::ReportService for ReportService {
             })?;
 
         Ok(Response::new(CreateReportResponse {
-            link: Some(response.url.to_string()),
+            link: Some(response.html_url.to_string()),
         }))
     }
 }

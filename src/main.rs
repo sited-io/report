@@ -17,10 +17,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let host = get_env_var("HOST");
 
     // initialize octocrab client (GitHub client)
+    let gh_app_id = get_env_var("GH_APP_ID").parse::<u64>().unwrap().into();
+    let gh_app_private_key = jsonwebtoken::EncodingKey::from_rsa_pem(
+        get_env_var("GH_APP_PRIVATE_KEY")
+            .replace("\\n", "\n")
+            .as_bytes(),
+    )
+    .unwrap();
+
     octocrab::initialise(
-        octocrab::OctocrabBuilder::default()
-            .base_uri("https://api.github.com")?
-            .personal_token(get_env_var("GH_PAT"))
+        octocrab::Octocrab::builder()
+            .app(gh_app_id, gh_app_private_key)
             .build()?,
     );
 

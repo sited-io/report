@@ -54,7 +54,12 @@ impl report_service_server::ReportService for ReportService {
 
         let gh_client = octocrab::instance();
 
+        let installations =
+            gh_client.apps().installations().send().await.unwrap();
+        let installation = installations.items.first().unwrap();
+
         let response = gh_client
+            .installation(installation.id)
             .issues(Self::GH_OWNER, Self::GH_REPO)
             .create(title)
             .body(content)

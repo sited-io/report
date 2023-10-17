@@ -41,7 +41,7 @@ job "report" {
 HOST='0.0.0.0:{{ env "NOMAD_PORT_grpc" }}'
 
 {{ with secret "kv2/data/services/report" }}
-GH_PAT='{{ .Data.pat }}'
+GH_PAT='{{ .Data.data.pat }}'
 {{ end }}
 
 {{ with nomadVar "nomad/jobs/report" }}

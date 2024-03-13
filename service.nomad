@@ -3,7 +3,7 @@ job "report" {
   type        = "service"
 
   group "report-api" {
-    count = 2
+    count = 1
 
     network {
       mode = "bridge"

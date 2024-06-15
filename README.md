@@ -1,4 +1,4 @@
-# Report service for peoplesmarkets.com
+# Report service for sited.io
 
 ## Prerequesites
 

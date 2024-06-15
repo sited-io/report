@@ -2,7 +2,7 @@ use std::io::Result;
 
 fn main() -> Result<()> {
     const MEDIA_PROTOS: &[&str] =
-        &["service-apis/proto/peoplesmarkets/report/v1/report.proto"];
+        &["service-apis/proto/sited_io/report/v1/report.proto"];
 
     const INCLUDES: &[&str] = &["service-apis/proto"];
 

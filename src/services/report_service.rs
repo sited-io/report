@@ -1,21 +1,21 @@
 use tonic::{async_trait, Request, Response, Status};
 
-use crate::api::peoplesmarkets::report::v1::report_service_server::{
+use crate::api::sited_io::report::v1::report_service_server::{
     self, ReportServiceServer,
 };
-use crate::api::peoplesmarkets::report::v1::{
+use crate::api::sited_io::report::v1::{
     CreateReportRequest, CreateReportResponse, ReportType,
 };
 
 pub struct ReportService {}
 
 impl ReportService {
-    const GH_OWNER: &str = "peoplesmarkets";
-    const GH_REPO: &str = "Project";
+    const GH_OWNER: &'static str = "sited_io";
+    const GH_REPO: &'static str = "Project";
 
-    const GH_TAG_BUG: &str = "bug";
-    const GH_TAG_FEATURE_REQUEST: &str = "feature request";
-    const GH_TAG_QUESTION: &str = "question";
+    const GH_TAG_BUG: &'static str = "bug";
+    const GH_TAG_FEATURE_REQUEST: &'static str = "feature request";
+    const GH_TAG_QUESTION: &'static str = "question";
 
     fn new() -> Self {
         Self {}

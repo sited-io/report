@@ -140,7 +140,7 @@ pub mod report_service_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/peoplesmarkets.report.v1.ReportService/CreateReport" => {
+                "/sited_io.report.v1.ReportService/CreateReport" => {
                     #[allow(non_camel_case_types)]
                     struct CreateReportSvc<T: ReportService>(pub Arc<T>);
                     impl<
@@ -224,6 +224,6 @@ pub mod report_service_server {
         }
     }
     impl<T: ReportService> tonic::server::NamedService for ReportServiceServer<T> {
-        const NAME: &'static str = "peoplesmarkets.report.v1.ReportService";
+        const NAME: &'static str = "sited_io.report.v1.ReportService";
     }
 }

@@ -4,7 +4,7 @@ use tonic::transport::Server;
 use tower_http::cors::{AllowOrigin, CorsLayer};
 use tower_http::trace::TraceLayer;
 
-use report::api::peoplesmarkets::report::v1::report_service_server::ReportServiceServer;
+use report::api::sited_io::report::v1::report_service_server::ReportServiceServer;
 use report::logging::{LogOnFailure, LogOnRequest, LogOnResponse};
 use report::{get_env_var, ReportService};
 
@@ -44,7 +44,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             tonic_health::pb::FILE_DESCRIPTOR_SET,
         )
         .register_encoded_file_descriptor_set(
-            report::api::peoplesmarkets::FILE_DESCRIPTOR_SET,
+            report::api::sited_io::FILE_DESCRIPTOR_SET,
         )
         .build()
         .unwrap();
@@ -69,6 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     HeaderName::from_static("grpc-status"),
                     HeaderName::from_static("grpc-message"),
                     HeaderName::from_static("x-grpc-web"),
+                    HeaderName::from_static("x-user-agent"),
                 ])
                 .allow_methods([Method::POST])
                 .allow_origin(AllowOrigin::any())

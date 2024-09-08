@@ -49,7 +49,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()
         .unwrap();
 
-    let report_service = ReportService::build();
+    let report_service = ReportService::build(
+        get_env_var("GITHUB_OWNER"),
+        get_env_var("GITHUB_REPO"),
+    );
 
     tracing::log::info!("gRPC+web server listening on {}", host);
 

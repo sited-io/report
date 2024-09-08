@@ -7,22 +7,24 @@ use crate::api::sited_io::report::v1::{
     CreateReportRequest, CreateReportResponse, ReportType,
 };
 
-pub struct ReportService {}
+pub struct ReportService {
+    github_owner: String,
+    github_repo: String,
+}
 
 impl ReportService {
-    const GH_OWNER: &'static str = "sited_io";
-    const GH_REPO: &'static str = "Project";
-
     const GH_TAG_BUG: &'static str = "bug";
     const GH_TAG_FEATURE_REQUEST: &'static str = "feature request";
     const GH_TAG_QUESTION: &'static str = "question";
 
-    fn new() -> Self {
-        Self {}
-    }
-
-    pub fn build() -> ReportServiceServer<Self> {
-        ReportServiceServer::new(Self::new())
+    pub fn build(
+        github_owner: String,
+        github_repo: String,
+    ) -> ReportServiceServer<Self> {
+        ReportServiceServer::new(Self {
+            github_owner,
+            github_repo,
+        })
     }
 }
 
@@ -60,7 +62,7 @@ impl report_service_server::ReportService for ReportService {
 
         let response = gh_client
             .installation(installation.id)
-            .issues(Self::GH_OWNER, Self::GH_REPO)
+            .issues(&self.github_owner, &self.github_repo)
             .create(title)
             .body(content)
             .labels(Some(vec![tag]))

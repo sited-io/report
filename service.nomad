@@ -19,11 +19,11 @@ job "report" {
         sidecar_service {}
       }
 
-      check {
-        type     = "grpc"
-        interval = "20s"
-        timeout  = "2s"
-      }
+      # check {
+      #   type     = "grpc"
+      #   interval = "20s"
+      #   timeout  = "2s"
+      # }
     }
 
     task "report-api" {
@@ -46,13 +46,13 @@ job "report" {
         data        = <<EOF
 HOST='0.0.0.0:{{ env "NOMAD_PORT_grpc" }}'
 
+{{ with nomadVar "nomad/jobs/report" }}
+RUST_LOG='{{ .RUST_LOG }}'
+{{ end }}
+
 {{ with secret "kv2/data/services/report" }}
 GH_APP_ID='{{ .Data.data.GH_APP_ID }}'
 GH_APP_PRIVATE_KEY='{{ .Data.data.GH_APP_PRIVATE_KEY }}'
-{{ end }}
-
-{{ with nomadVar "nomad/jobs/report" }}
-RUST_LOG='{{ .LOG_LEVEL }}'
 {{ end }}
 EOF
       }

@@ -1,11 +1,9 @@
 use tonic::{async_trait, Request, Response, Status};
 
-use crate::api::sited_io::report::v1::report_service_server::{
+use service_apis::sited_io::report::v1::report_service_server::{
     self, ReportServiceServer,
 };
-use crate::api::sited_io::report::v1::{
-    CreateReportRequest, CreateReportResponse, ReportType,
-};
+use service_apis::sited_io::report::v1::*;
 
 pub struct ReportService {
     github_owner: String,

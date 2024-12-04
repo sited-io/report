@@ -1,10 +1,24 @@
-FROM debian:bookworm-slim
+FROM rust:latest AS builder
+
+WORKDIR /app
+
+COPY Cargo.toml .
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+RUN cargo build --release
+
+COPY src src
+RUN touch src/main.rs
+RUN cargo build --release
+
+RUN strip target/release/report
+
+FROM debian:bookworm-slim AS release
+WORKDIR /app
+
+COPY --from=builder /app/target/release/report .
 
 RUN apt update && apt install -y --no-install-recommends ca-certificates adduser
 RUN update-ca-certificates
-
-# Copy our build
-COPY target/release/report /usr/local/bin/report
 
 # Create appuser
 ENV USER=report_user
@@ -22,4 +36,4 @@ RUN adduser \
 # Use an unprivileged user.
 USER ${USER}:${USER}
 
-ENTRYPOINT ["report"]
+ENTRYPOINT [ "./report" ]

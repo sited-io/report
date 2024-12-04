@@ -54,6 +54,11 @@ RUST_LOG='{{ .RUST_LOG }}'
 GH_APP_ID='{{ .Data.data.GH_APP_ID }}'
 GH_APP_PRIVATE_KEY='{{ .Data.data.GH_APP_PRIVATE_KEY }}'
 {{ end }}
+
+{{ with nomadVar "nomad/jobs/report" }}
+GITHUB_OWNER='{{ .GITHUB_OWNER }}'
+GITHUB_REPO='{{ .GITHUB_REPO }}'
+{{ end }}
 EOF
       }
 

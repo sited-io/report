@@ -19,11 +19,11 @@ job "report" {
         sidecar_service {}
       }
 
-      # check {
-      #   type     = "grpc"
-      #   interval = "20s"
-      #   timeout  = "2s"
-      # }
+      check {
+        type     = "grpc"
+        interval = "20s"
+        timeout  = "2s"
+      }
     }
 
     task "report-api" {
